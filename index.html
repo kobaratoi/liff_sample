@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <title>(仮) (仮) LIFFアプリ初期化</title>
+</head>
+<body>
+    <h1>liffサンプル</h1>
+  <script type="text/javascript">
+  console.log("liff sample!")
+    window.onload = function() {
+      const myLiffId = ''
+
+      liff.init(
+        {
+          liffId: myLiffId
+        },
+        data => {
+          // ログインチェック
+          if (liff.isLoggedIn()) {
+            this.isClient = liff.isInClient()
+            // アクセストークン取得
+            const accessToken = liff.getAccessToken()
+            if (accessToken) {
+              const form = document.createElement('form')
+              form.method = "POST"
+              form.action = "/lineapp"
+
+              const hiddenField = document.createElement('input')
+              hiddenField.type = "hidden"
+              hiddenField.name = "accessToken"
+              hiddenField.value = accessToken
+              form.appendChild(hiddenField)
+
+              document.body.appendChild(form)
+              form.submit()
+            } else {
+              console.log('error')
+            }
+          } else {
+            // 未ログイン
+            liff.login()
+          }
+        },
+        error => {
+          console.log('LIFF initialization failed', error)
+        }
+      )
+    }
+  </script>
+  <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+</body>
+</html>
