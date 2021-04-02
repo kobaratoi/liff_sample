@@ -21,18 +21,7 @@
             // アクセストークン取得
             const accessToken = liff.getAccessToken()
             if (accessToken) {
-              const form = document.createElement('form')
-              form.method = "POST"
-              form.action = "/lineapp"
-
-              const hiddenField = document.createElement('input')
-              hiddenField.type = "hidden"
-              hiddenField.name = "accessToken"
-              hiddenField.value = accessToken
-              form.appendChild(hiddenField)
-
-              document.body.appendChild(form)
-              form.submit()
+              conosle.log(accessToken);
             } else {
               console.log('error')
             }
